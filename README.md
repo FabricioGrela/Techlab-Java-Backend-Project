@@ -140,6 +140,6 @@ java -cp out com.techlab.Main
 
 <div align="center">
 
-Desarrollado como proyecto integrador · Backend Java Course 2025
+Desarrollado como proyecto integrador · Curso Java Backend 2026
 
 </div>
