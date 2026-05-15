@@ -13,6 +13,11 @@ public class Comida extends Producto {
     public void setFechaVencimiento(String fecha) { this.fechaVencimiento = fecha; }
 
     @Override
+    public String getDetalleTipo() {
+        return "Comida";
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " | Vence: " + fechaVencimiento;
     }

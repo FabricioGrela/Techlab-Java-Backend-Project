@@ -13,6 +13,11 @@ public class Bebida extends Producto {
     public void setVolumenLitros(double volumenLitros) { this.volumenLitros = volumenLitros; }
 
     @Override
+    public String getDetalleTipo() {
+        return "Bebida";
+    }
+
+    @Override
     public String toString() {
         return super.toString() + String.format(" | Volumen: %.2f L", volumenLitros);
     }
