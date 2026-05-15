@@ -14,26 +14,32 @@ public class ProductoService {
     }
 
     public void listar() {
-        if (productos.isEmpty()) {
+        // CAMBIO: filtra los inactivos
+        List<Producto> activos = new ArrayList<>();
+        for (Producto p : productos) {
+            if (p.isActivo()) activos.add(p);
+        }
+        if (activos.isEmpty()) {
             System.out.println("No hay productos registrados.");
             return;
         }
         System.out.println("\n--- LISTA DE PRODUCTOS ---");
-        for (Producto p : productos) {
+        for (Producto p : activos) {
             System.out.println(p);
         }
     }
 
     public Producto buscarPorId(int id) {
         for (Producto p : productos) {
-            if (p.getId() == id) return p;
+            // CAMBIO: solo busca entre activos
+            if (p.getId() == id && p.isActivo()) return p;
         }
         return null;
     }
 
     public Producto buscarPorNombre(String nombre) {
         for (Producto p : productos) {
-            if (p.getNombre().equalsIgnoreCase(nombre)) return p;
+            if (p.getNombre().equalsIgnoreCase(nombre) && p.isActivo()) return p;
         }
         return null;
     }
@@ -41,7 +47,7 @@ public class ProductoService {
     public boolean eliminar(int id) {
         Producto p = buscarPorId(id);
         if (p != null) {
-            productos.remove(p);
+            p.setActivo(false); // CAMBIO: borrado lógico, no físico
             return true;
         }
         return false;

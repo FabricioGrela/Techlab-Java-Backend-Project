@@ -1,6 +1,7 @@
 package com.techlab.servicios;
 
 import com.techlab.excepciones.StockInsuficienteException;
+import com.techlab.pedidos.EstadoPedido;
 import com.techlab.pedidos.LineaPedido;
 import com.techlab.pedidos.Pedido;
 import com.techlab.productos.Producto;
@@ -57,6 +58,26 @@ public class PedidoService {
         } else {
             System.out.println("El pedido estaba vacío, no se guardó.");
         }
+    }
+
+    // NUEVO: permite cambiar el estado de un pedido por su ID
+    public void cambiarEstadoPedido(int idPedido, EstadoPedido nuevoEstado, ProductoService productoService) {
+        for (Pedido p : pedidos) {
+            if (p.getId() == idPedido) {
+                // Si se cancela, devuelve el stock
+                if (nuevoEstado == EstadoPedido.CANCELADO && p.getEstado() != EstadoPedido.CANCELADO) {
+                    for (LineaPedido linea : p.getLineas()) {
+                        Producto prod = linea.getProducto();
+                        prod.setStock(prod.getStock() + linea.getCantidad());
+                    }
+                    System.out.println("Stock restaurado por cancelación del pedido.");
+                }
+                p.setEstado(nuevoEstado);
+                System.out.println("Estado actualizado a: " + nuevoEstado);
+                return;
+            }
+        }
+        System.out.println("Pedido no encontrado.");
     }
 
     public void listarPedidos() {
