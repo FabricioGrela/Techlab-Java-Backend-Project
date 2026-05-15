@@ -1,6 +1,6 @@
 package com.techlab.excepciones;
 
-public class StockInsuficienteException extends Exception {
+public class StockInsuficienteException extends TechlabException { // antes era Exception
 
     public StockInsuficienteException(String nombreProducto, int stockDisponible, int cantidadPedida) {
         super(String.format(
