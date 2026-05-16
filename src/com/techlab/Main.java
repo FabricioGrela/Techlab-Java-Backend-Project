@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    // NUEVO: colores ANSI
     static final String VERDE  = "\u001B[32m";
     static final String ROJO   = "\u001B[31m";
     static final String AMARILLO = "\u001B[33m";
