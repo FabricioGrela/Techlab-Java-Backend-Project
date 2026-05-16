@@ -24,7 +24,7 @@ public class Main {
         boolean salir = false;
 
         while (!salir) {
-            System.out.println("\n========== SISTEMA DE GESTIÓN - TECHLAB ==========");
+            System.out.println("\n========== SISTEMA DE GESTION - TECHLAB ==========");
             System.out.println("1) Agregar producto");
             System.out.println("2) Listar productos");
             System.out.println("3) Buscar/Actualizar producto");
@@ -33,7 +33,7 @@ public class Main {
             System.out.println("6) Listar pedidos");
             System.out.println("7) Actualizar estado de pedido");
             System.out.println("8) Salir");
-            System.out.print("Elegí una opción: ");
+            System.out.print("Elija una opcion: ");
 
             String opcion = scanner.nextLine();
 
@@ -46,7 +46,7 @@ public class Main {
                 case "6" -> pedidoService.listarPedidos();
                 case "7" -> actualizarEstadoPedido(scanner, pedidoService, productoService);
                 case "8" -> { salir = true; System.out.println(VERDE + "¡Hasta luego!" + RESET); }
-                default  -> System.out.println(ROJO + "Opción inválida." + RESET);
+                default  -> System.out.println(ROJO + "Opcion invalida." + RESET);
             }
         }
         scanner.close();
@@ -56,11 +56,11 @@ public class Main {
         try {
             System.out.println("Tipo: 1) Genérico  2) Bebida  3) Comida  (x para cancelar)");
             String tipo = scanner.nextLine();
-            if (tipo.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operación cancelada." + RESET); return; }
+            if (tipo.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operacion cancelada." + RESET); return; }
 
             System.out.print("Nombre (x para cancelar): ");
             String nombre = scanner.nextLine();
-            if (nombre.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operación cancelada." + RESET); return; }
+            if (nombre.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operacion cancelada." + RESET); return; }
 
             System.out.print("Precio: ");
             double precio = Double.parseDouble(scanner.nextLine());
@@ -82,14 +82,14 @@ public class Main {
             }
             System.out.println(VERDE + "Producto agregado correctamente." + RESET); // NUEVO
         } catch (NumberFormatException e) {
-            System.out.println(ROJO + "Error: ingresaste un valor no numérico." + RESET);
+            System.out.println(ROJO + "Error: ingresaste un valor no numerico." + RESET);
         }
     }
 
     static void buscarActualizar(Scanner scanner, ProductoService service) {
         System.out.print("Buscar por: 1) ID  2) Nombre (x para cancelar) → ");
         String modo = scanner.nextLine();
-        if (modo.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operación cancelada." + RESET); return; }
+        if (modo.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operacion cancelada." + RESET); return; }
 
         com.techlab.productos.Producto p = null;
         try {
@@ -108,7 +108,7 @@ public class Main {
         if (p == null) { System.out.println(ROJO + "Producto no encontrado." + RESET); return; }
 
         System.out.println("Encontrado: " + p);
-        System.out.println("¿Qué querés actualizar? 1) Precio  2) Stock  3) Nada");
+        System.out.println("¿Que queres actualizar? 1) Precio  2) Stock  3) Nada");
         String accion = scanner.nextLine();
 
         try {
@@ -126,7 +126,7 @@ public class Main {
                 System.out.println(VERDE + "Stock actualizado." + RESET);
             }
         } catch (NumberFormatException e) {
-            System.out.println(ROJO + "Valor inválido." + RESET);
+            System.out.println(ROJO + "Valor invalido." + RESET);
         }
     }
 
@@ -134,21 +134,21 @@ public class Main {
         try {
             System.out.print("ID del producto a eliminar (x para cancelar): ");
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operación cancelada." + RESET); return; }
+            if (input.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operacion cancelada." + RESET); return; }
 
             int id = Integer.parseInt(input);
             com.techlab.productos.Producto p = service.buscarPorId(id);
             if (p == null) { System.out.println(ROJO + "Producto no encontrado." + RESET); return; }
 
-            System.out.print("¿Confirmás la eliminación de '" + p.getNombre() + "'? (s/n): ");
+            System.out.print("¿Confirmas la eliminación de '" + p.getNombre() + "'? (s/n): ");
             if (scanner.nextLine().equalsIgnoreCase("s")) {
                 service.eliminar(id); // ahora hace borrado lógico
                 System.out.println(VERDE + "Producto desactivado correctamente." + RESET);
             } else {
-                System.out.println(AMARILLO + "Eliminación cancelada." + RESET);
+                System.out.println(AMARILLO + "Eliminacion cancelada." + RESET);
             }
         } catch (NumberFormatException e) {
-            System.out.println(ROJO + "ID inválido." + RESET);
+            System.out.println(ROJO + "ID invalido." + RESET);
         }
     }
 
@@ -156,7 +156,7 @@ public class Main {
     try {
         System.out.print("ID del pedido a actualizar (x para cancelar): ");
         String input = scanner.nextLine();
-        if (input.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operación cancelada." + RESET); return; }
+        if (input.equalsIgnoreCase("x")) { System.out.println(AMARILLO + "Operacion cancelada." + RESET); return; }
 
         int id = Integer.parseInt(input);
         System.out.println("Nuevo estado: 1) PENDIENTE  2) ENTREGADO  3) CANCELADO");
@@ -169,13 +169,13 @@ public class Main {
             default  -> null;
         };
 
-        if (nuevoEstado == null) { System.out.println(ROJO + "Opción inválida." + RESET); return; }
+        if (nuevoEstado == null) { System.out.println(ROJO + "Opcion invalida." + RESET); return; }
 
         pedidoService.cambiarEstadoPedido(id, nuevoEstado, productoService);
         System.out.println(VERDE + "Estado actualizado correctamente." + RESET);
 
     } catch (NumberFormatException e) {
-        System.out.println(ROJO + "ID inválido." + RESET);
+        System.out.println(ROJO + "ID invalido." + RESET);
     }
     }
 
